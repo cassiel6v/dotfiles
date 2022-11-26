@@ -39,10 +39,6 @@ alias shrc='nvim $HOME/.zprofile'
 alias kitrc='nvim $HOME/.config/kitty/kitty.conf'
 alias vimrc='nvim $HOME/.config/nvim/'
 alias relsh='source $HOME/.zprofile'
-alias wmrc='nvim $HOME/.config/yabai/yabairc'
-alias hkrc='nvim $HOME/.config/skhd/skhdrc'
-
-# •• Apps
 
 # •• Code
 
@@ -70,6 +66,7 @@ alias publ='cd $HOME/Public'
 alias conf='cd $HOME/.config'
 alias stuf='cd $HOME/Stuff'
 alias repo='cd $HOME/Repos'
+alias dots='cd $HOME/Repos/dotfiles'
 
 #------------------
 #   VARIABLES

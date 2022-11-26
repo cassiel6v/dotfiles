@@ -1,0 +1,19 @@
+#---------------
+#   GITIGNORE
+#---------------
+
+# Apple
+.DS_Store
+
+# BTOP
+config/btop/*.log
+
+# Ranger
+__init__.py
+__pycache__/
+
+# Neovim
+config/nvim/plugin/
+
+# Spaceship
+*.zwc
