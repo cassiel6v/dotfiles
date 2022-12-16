@@ -7,8 +7,8 @@
 
 # :: Functions
 
-declare -a conflist=$(/bin/ls ./config)
-declare -a homelist=$(/bin/ls ./home)
+declare -a conflist=$(/bin/ls -A ./config)
+declare -a homelist=$(/bin/ls -A ./home)
 
 confcheck(){
     for item in $conflist
@@ -59,7 +59,10 @@ link_conf(){
         fi
     done
 
-    ln -sv ./config/* $HOME/.config/
+    for item in $conflist
+    do
+        ln -s ./config/$item $HOME/.config/$item
+    done
 }
 
 link_home(){
@@ -74,7 +77,10 @@ link_home(){
         fi
     done
 
-    ln -sv ./home/* $HOME/
+    for item in $homelist
+    do
+        ln -s ./home/$item $HOME/$item
+    done
 }
 
 deploy_finish(){
