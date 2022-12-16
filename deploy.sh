@@ -7,61 +7,86 @@
 
 # :: Functions
 
-confcheck(){
-    declare -a conflist=$(/bin/ls ./config)
+declare -a conflist=$(/bin/ls ./config)
+declare -a homelist=$(/bin/ls ./home)
 
+confcheck(){
     for item in $conflist
     do
         if [ -e ~/.config/$item ]
         then
-            echo -e "\e[1;31mWarning! $item is already in ~/.config\e[0m"
+            echo -e "\x1B[1;31mWarning! $item is already in ~/.config\x1B[0m"
         fi
     done
-
-    declare -a homelist=$(/bin/ls ./home)
 
     for item in $homelist
     do
         if [ -e $HOME/$item ]
         then
-            echo -e "\e[1;31mWarning! $item is already in $HOME\e[0m"
+            echo -e "\x1B[1;31mWarning! $item is already in $HOME\x1B[0m"
         fi
     done
 }
 
 deployconfirm(){
-    echo -e "\e[1;33m Are you sure you want to deploy configuration files? \e[0m"
-    echo -e "\e[1;33m This will overwrite existing files.\n \e[0m"
+    echo -e "\x1B[1;33m Are you sure you want to deploy configuration files? \x1B[0m"
+    echo -e "\x1B[1;33m This will overwrite existing files.\n \x1B[0m"
     read -p "Answer [y/N]: " answer
     case $answer in
         [yY][eE][sS]|[yY])
-            echo -e "\e[1;34m Deploying in 5.. \e[0m" && sleep 1
-            echo -e "\e[1;34m Deploying in 4.. \e[0m" && sleep 1
-            echo -e "\e[1;34m Deploying in 3.. \e[0m" && sleep 1
-            echo -e "\e[1;34m Deploying in 2.. \e[0m" && sleep 1
-            echo -e "\e[1;34m Deploying in 1.. \e[0m" && sleep 1;;
+            echo -e "\x1B[1;34m Deploying in 5.. \x1B[0m" && sleep 1
+            echo -e "\x1B[1;34m Deploying in 4.. \x1B[0m" && sleep 1
+            echo -e "\x1B[1;34m Deploying in 3.. \x1B[0m" && sleep 1
+            echo -e "\x1B[1;34m Deploying in 2.. \x1B[0m" && sleep 1
+            echo -e "\x1B[1;34m Deploying in 1.. \x1B[0m" && sleep 1;;
         [nN][oO][nN]|[nN])
             exit 1;;
         *)
-            echo -e "\e[1;33m Invalid input. Exiting... \e[0m"
+            echo -e "\x1B[1;33m Invalid input. Exiting... \x1B[0m"
             exit 1;;
     esac
 }
 
 link_conf(){
-    echo -e "\e[1;34m Deploying into ~/.config... \e[0m"
+    echo -e "\x1B[1;34m Deploying into ~/.config... \x1B[0m" && sleep 1
 
-    ln -sfvr ./config/* $HOME/.config/ 1> /dev/null
+    for item in $conflist
+    do
+        if [ -e ~/.config/$item ] 
+        then
+            rm -rf ~/.config/$item 1> /dev/null
+            echo -e "\x1B[1;31mDeleted existing $item configuration in ~/.config \x1B[0m"
+        fi
+    done
+
+    ln -sv ./config/* $HOME/.config/
 }
 
 link_home(){
-    echo -e "\e[1;34m Deploying home-based configurations... \e[0m"
+    echo -e "\x1B[1;34m Deploying home-based configurations... \x1B[0m" && sleep 1
 
-    ln -sfvr ./home/* $HOME/ 1> /dev/null
+    for item in $homelist
+    do
+        if [ -e $HOME/$item ]
+        then
+            rm -rf $HOME/$item 1> /dev/null
+            echo -e "\x1B[1;31mDeleted existing $item configuration in $HOME\x1B[0m"
+        fi
+    done
+
+    ln -sv ./home/* $HOME/
 }
 
 deploy_finish(){
-    echo -e "\e[1;32m Dotfiles successfully deployed!\n \e[0m"
+    echo -e "\x1B[1;32m The following dotfiles were successfully deployed:\n \x1B[0m"
+    for item in $conflist
+    do
+        echo -e "\x1B[1;32m  - $item \x1B[0m"
+    done
+    for item in $homelist
+    do
+        echo -e "\x1B[1;32m  - $item \x1B[0m"
+    done
 }
 
 # :: Exec

@@ -135,12 +135,12 @@ map('n', '<C-Right>', ':vetical resize +2<CR>')
 map('v', '<', '<gv')
 map('v', '>', '>gv')
 
+map('v', 'p', '"_dP')
+
 map('x', 'J', ":move '>+1<CR>gv=gv")
 map('x', 'K', ":move '<-2<CR>gv=gv")
 map('x', 'L', '$')
 map('x', 'H', '^')
-
-map('x', 'p', '"_dDP')
 
 
 ---------------
@@ -204,3 +204,4 @@ return require('packer').startup({
             },
         },
 })
+
