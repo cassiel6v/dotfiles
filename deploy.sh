@@ -7,6 +7,8 @@
 
 # :: Functions
 
+dots_dir=$(pwd)
+
 declare -a conflist=$(/bin/ls -A ./config)
 declare -a homelist=$(/bin/ls -A ./home)
 
@@ -40,6 +42,7 @@ deployconfirm(){
             echo -e "\x1B[1;34m Deploying in 2.. \x1B[0m" && sleep 1
             echo -e "\x1B[1;34m Deploying in 1.. \x1B[0m" && sleep 1;;
         [nN][oO][nN]|[nN])
+            echo -e "\x1B[1;33m Deployment aborted. Exiting... \x1B[0m"
             exit 1;;
         *)
             echo -e "\x1B[1;33m Invalid input. Exiting... \x1B[0m"
@@ -61,7 +64,7 @@ link_conf(){
 
     for item in $conflist
     do
-        ln -s ./config/$item $HOME/.config/$item
+        ln -s $dots_dir/config/$item $HOME/.config/$item
     done
 }
 
@@ -79,7 +82,7 @@ link_home(){
 
     for item in $homelist
     do
-        ln -s ./home/$item $HOME/$item
+        ln -s $dots_dir/home/$item $HOME/$item
     done
 }
 
