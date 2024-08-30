@@ -12,7 +12,7 @@
 
 # VARIABLES :: 00-environment; 01-custom
 # ALIASES :: 02-system management; 03-configurations; 04-utils; 05-git; 06-directories
-# FEATURES :: 07-autocomplete; 08-auto cd; 09-updirs; 10-vi model; 11-universal extractor
+# FEATURES :: 07-autocomplete; 08-auto cd; 09-updirs; 10-vi mode; 11-universal extractor
 # PLUGINS
 # PROMPT
 

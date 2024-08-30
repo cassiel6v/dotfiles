@@ -2,10 +2,10 @@
 #------------------
 #  DEPLOY.SH
 #------------------
-# Dotfile deployment script
+# dotfile deployment script
 # macOS version
 
-# :: Functions
+# --- functions
 
 dots_dir=$(pwd)
 
@@ -98,6 +98,6 @@ deploy_finish(){
     done
 }
 
-# :: Exec
+# --- exec
 
 confcheck && deployconfirm && link_conf && link_home && deploy_finish
