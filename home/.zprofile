@@ -49,8 +49,9 @@ alias v='nvim'
 alias b='bat'
 alias c='cat'
 alias t='touch'
-alias ls='exa -a --color=always --icons --group-directories-first'
-alias lx='exa -lah --color=always --icons --group-directories-first'
+alias ls='ls -a --color=always'
+# alias ls='exa -a --color=always --icons --group-directories-first' --- exa broken for unknown reason
+# alias lx='exa -lah --color=always --icons --group-directories-first'
 alias rem='rm -rfI'
 alias grep='grep --color=auto'
 
