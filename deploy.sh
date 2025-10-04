@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-#------------------
+# --------------
 #  DEPLOY.SH
-#------------------
+# --------------
+# --- linux ---
+# --- macos ---
 # dotfile deployment script
-# macOS version
 
-# --- functions
+
+# --- [functions] ---
 
 dots_dir=$(pwd)
 
@@ -98,6 +100,8 @@ deploy_finish(){
     done
 }
 
-# --- exec
+# --- [exec] ---
 
 confcheck && deployconfirm && link_conf && link_home && deploy_finish
+
+# --- [end] ---

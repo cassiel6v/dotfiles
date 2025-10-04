@@ -1,29 +1,14 @@
-#   ███████╗███████╗██╗  ██╗
-#   ╚══███╔╝██╔════╝██║  ██║
-#     ███╔╝ ███████╗███████║
-#    ███╔╝  ╚════██║██╔══██║
-#   ███████╗███████║██║  ██║
-#   ╚══════╝╚══════╝╚═╝  ╚═╝
-#   macOS/personal configuration
+# --- - --- - ---
+#  ZSH_PROFILE
+# --- - --- - ---
+# --- macos ---
 
-#------------------
-#  CONTENTS
-#------------------
 
-# VARIABLES :: 00-environment; 01-custom
-# ALIASES :: 02-system management; 03-configurations; 04-utils; 05-git; 06-directories
-# FEATURES :: 07-autocomplete; 08-auto cd; 09-updirs; 10-vi mode; 11-universal extractor
-# PLUGINS
-# PROMPT
+# --- [variables] ---
 
-#------------------
-#  VARIABLES
-#------------------
-
-# 00 • environment
+# .environment
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
-export HOMEBREW_GITHUB_API_TOKEN=$(cat $HOME/Documents/token)
 
 export EDITOR=nvim
 export VISUAL=nvim
@@ -34,15 +19,9 @@ export SUDO_PROMPT=$(echo -e "\033[31mPassword: \033[0m")
 HISTSIZE=1000
 SAVEHIST=1000
 
-# 01 • custom
+# --- [aliases] ---
 
-VAULTS=/Users/$USER/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/
-
-#------------------
-#  ALIASES
-#------------------
-
-# 02 • system management
+# .system_management
 
 alias s='sudo'
 alias v='nvim'
@@ -50,24 +29,23 @@ alias b='bat'
 alias c='cat'
 alias t='touch'
 alias ls='ls -a --color=always'
-# alias ls='exa -a --color=always --icons --group-directories-first' --- exa broken for unknown reason
-# alias lx='exa -lah --color=always --icons --group-directories-first'
+alias lx='eza -lah --color=always --icons --group-directories-first'
 alias rem='rm -rfI'
 alias grep='grep --color=auto'
 
-# 03 • configurations
+# .configurations
 
 alias shrc='nvim $HOME/.zprofile'
 alias kitrc='nvim $HOME/.config/kitty/kitty.conf'
 alias vimrc='nvim $HOME/.config/nvim/init.lua'
 alias relsh='source $HOME/.zprofile'
 
-# 04 • utils
+# .utilities
 
 alias py='python3'
 alias sha='shasum -a 256'
 
-# 05 • git
+# .git
 
 alias status='git status'
 alias stage='git add *'
@@ -77,8 +55,9 @@ alias push='git push -u'
 alias commit='git commit -m'
 alias checkout='git checkout'
 alias clone='git clone'
+alias clog='git log --graph --decorate --oneline'
 
-# 06 • directories
+# .directories
 
 alias apps='cd /Applications'
 alias docs='cd $HOME/Documents'
@@ -90,18 +69,21 @@ alias stuf='cd $HOME/Stuff'
 alias repo='cd $HOME/Repos'
 alias dots='cd $HOME/Repos/dotfiles'
 
-#------------------
-#  FEATURES
-#------------------
+# .updirs
 
-# 07 • autocomplete
-# --- with case insenstivity
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+# --- [features] ---
+
+# .autocomplete
 
 autoload -U compinit && compinit -u
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
-# 08 • auto cd
+# .auto_cd
 
 zstyle :compinstall filename "$HOME/.zshrc"
 setopt autocd extendedglob nomatch
@@ -110,22 +92,14 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)# Include Dotfiles
 
-# 09 • updirs
-
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-
-# 10 • vi mode
+# .vi_mode
 
 bindkey -v
 export KEYTIMEOUT=1
 
-# --- edit command line in vim buffer
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^v' edit-command-line
 
-# --- use vim keys in tab complete menu
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
@@ -135,10 +109,8 @@ bindkey -M menuselect 'down' vi-down-line-or-history
 bindkey -M menuselect 'up' vi-up-line-or-history
 bindkey -M menuselect 'right' vi-forward-char
 
-# --- fix backspace bug when switching modes
 bindkey "^?" backward-delete-char
 
-# --- change cursor shape for different vi modes
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]] ||
      [[ $1 = 'block' ]]; then
@@ -159,7 +131,7 @@ zle -N zle-line-init
 echo -ne '\e[5 q' 
 preexec() { echo -ne '\e[5 q' ;} 
 
-# 11 • universal extractor
+# .universal_extractor
 
 function extract {
   if [ -z "$1" ]; then
@@ -190,20 +162,17 @@ function extract {
   fi
 }
 
-#------------------
-#  PLUGINS
-#------------------
+# --- [plugins] ---
 
 source /opt/homebrew/opt/spaceship/spaceship.zsh
 source /opt/homebrew/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
-#------------------
-#  PROMPT
-#------------------
+# .prompt
 
 autoload -U promptinit; promptinit
 
 export SPACESHIP_CONFIG_FILE="$HOME/.config/spaceship/spaceship.zsh"
 
 
+# --- [end] ---
 # vim: ft=bash
